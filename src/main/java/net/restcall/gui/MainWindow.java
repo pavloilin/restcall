@@ -3,7 +3,6 @@ package net.restcall.gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
@@ -17,10 +16,46 @@ public class MainWindow extends JFrame {
 
 	public MainWindow() {
 		super("RestCall ver." + RcConsts.version);
+		configure();
+		
+		JTree sidebarPanel = createSidebarTree();
+        JPanel bottomPanel = createBottomPanel();
+        JPanel mainPanel = createMainPanel();
+
+      
+        // Create split panes
+        JSplitPane horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebarPanel, mainPanel);
+        JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, horizontalSplitPane, bottomPanel );
+
+        // Set initial sizes of the split panes (customize as needed)
+        verticalSplitPane.setDividerLocation(400);
+        horizontalSplitPane.setDividerLocation(200);
+
+        // Set the split pane as the content of the frame
+        getContentPane().add(verticalSplitPane);
+
+	}
+
+	private void configure() {
 		setSize(700, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+	}
+
+	private JPanel createMainPanel() {
+		JPanel mainPanel = new JPanel();
+
+        mainPanel.setLayout(new BorderLayout());
+		return mainPanel;
+	}
+
+	private JPanel createBottomPanel() {
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setLayout(new BorderLayout());
+		return bottomPanel;
+	}
+
+	private JTree createSidebarTree() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
         DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("Branch 1");
         DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("Branch 2");
@@ -31,29 +66,7 @@ public class MainWindow extends JFrame {
         root.add(branch3);
 
         JTree sidebarPanel = new JTree(root);
-        JPanel bottomPanel = new JPanel();
-        JPanel mainPanel = new JPanel();
-
-        // Set layouts for the panels (you can customize as needed)
         sidebarPanel.setLayout(new BorderLayout());
-        bottomPanel.setLayout(new BorderLayout());
-        mainPanel.setLayout(new BorderLayout());
-
-        // Add some components to each panel (customize as needed)
-        sidebarPanel.add(new JLabel("Sidebar Content"), BorderLayout.CENTER);
-        bottomPanel.add(new JLabel("Bottom Panel Content"), BorderLayout.CENTER);
-        mainPanel.add(new JLabel("Main Window Content"), BorderLayout.CENTER);
-
-        // Create split panes
-        JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, mainPanel, bottomPanel);
-        JSplitPane horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebarPanel, verticalSplitPane);
-
-        // Set initial sizes of the split panes (customize as needed)
-        verticalSplitPane.setDividerLocation(400);
-        horizontalSplitPane.setDividerLocation(200);
-
-        // Set the split pane as the content of the frame
-        getContentPane().add(horizontalSplitPane);
-
+		return sidebarPanel;
 	}
 }
