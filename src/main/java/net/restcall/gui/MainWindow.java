@@ -3,8 +3,10 @@ package net.restcall.gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -46,6 +48,27 @@ public class MainWindow extends JFrame {
 		JPanel mainPanel = new JPanel();
 
         mainPanel.setLayout(new BorderLayout());
+        
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        // Create and add tabs to the JTabbedPane
+        JPanel tab1 = new JPanel();
+        tab1.add(new JLabel("Tab 1 Content"));
+        tabbedPane.addTab("Tab 1", tab1);
+
+        JPanel tab2 = new JPanel();
+        tab2.add(new JLabel("Tab 2 Content"));
+        tabbedPane.addTab("Tab 2", tab2);
+
+        JPanel tab3 = new JPanel();
+        tab3.add(new JLabel("Tab 3 Content"));
+        tabbedPane.addTab("Tab 3", tab3);
+        // Set layouts for the panels (customize as needed)
+
+        // Add some components to bottom and main panels (customize as needed)
+
+        mainPanel.add(tabbedPane, BorderLayout.CENTER); // Add the JTabbedPane to mainPanel
+        
 		return mainPanel;
 	}
 
