@@ -1,6 +1,8 @@
 package net.restcall.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,30 +13,34 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.restcall.consts.RcConsts;
+import net.restcall.gui.pages.RequestPage;
 
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	
+	JTabbedPane tabbedPane;
+	
+	
 	public MainWindow() {
 		super("RestCall ver." + RcConsts.version);
 		configure();
-		
+
 		JTree sidebarPanel = createSidebarTree();
-        JPanel bottomPanel = createBottomPanel();
-        JPanel mainPanel = createMainPanel();
+		JPanel bottomPanel = createBottomPanel();
+		JPanel mainPanel = createMainPanel();
 
-      
-        // Create split panes
-        JSplitPane horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebarPanel, mainPanel);
-        JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, horizontalSplitPane, bottomPanel );
+		// Create split panes
+		JSplitPane horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebarPanel, mainPanel);
+		JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, horizontalSplitPane, bottomPanel);
 
-        // Set initial sizes of the split panes (customize as needed)
-        verticalSplitPane.setDividerLocation(400);
-        horizontalSplitPane.setDividerLocation(200);
+		// Set initial sizes of the split panes (customize as needed)
+		verticalSplitPane.setDividerLocation(400);
+		horizontalSplitPane.setDividerLocation(200);
 
-        // Set the split pane as the content of the frame
-        getContentPane().add(verticalSplitPane);
+		// Set the split pane as the content of the frame
+		getContentPane().add(verticalSplitPane);
 
 	}
 
@@ -47,28 +53,28 @@ public class MainWindow extends JFrame {
 	private JPanel createMainPanel() {
 		JPanel mainPanel = new JPanel();
 
-        mainPanel.setLayout(new BorderLayout());
-        
-        JTabbedPane tabbedPane = new JTabbedPane();
+		mainPanel.setLayout(new BorderLayout());
 
-        // Create and add tabs to the JTabbedPane
-        JPanel tab1 = new JPanel();
-        tab1.add(new JLabel("Tab 1 Content"));
-        tabbedPane.addTab("Tab 1", tab1);
+		tabbedPane = new JTabbedPane();
 
-        JPanel tab2 = new JPanel();
-        tab2.add(new JLabel("Tab 2 Content"));
-        tabbedPane.addTab("Tab 2", tab2);
+		// Create and add tabs to the JTabbedPane
+		JPanel tab1 = new JPanel();
+		tab1.add(new JLabel("Tab 1 Content"));
+		tabbedPane.addTab("Tab 1", tab1);
 
-        JPanel tab3 = new JPanel();
-        tab3.add(new JLabel("Tab 3 Content"));
-        tabbedPane.addTab("Tab 3", tab3);
-        // Set layouts for the panels (customize as needed)
+		JPanel tab2 = new JPanel();
+		tab2.add(new JLabel("Tab 2 Content"));
+		tabbedPane.addTab("Tab 2", tab2);
 
-        // Add some components to bottom and main panels (customize as needed)
+		JPanel tab3 = new JPanel();
+		tab3.add(new JLabel("Tab 3 Content"));
+		tabbedPane.addTab("Tab 3", tab3);
+		// Set layouts for the panels (customize as needed)
 
-        mainPanel.add(tabbedPane, BorderLayout.CENTER); // Add the JTabbedPane to mainPanel
-        
+		// Add some components to bottom and main panels (customize as needed)
+
+		mainPanel.add(tabbedPane, BorderLayout.CENTER); // Add the JTabbedPane to mainPanel
+
 		return mainPanel;
 	}
 
@@ -80,16 +86,34 @@ public class MainWindow extends JFrame {
 
 	private JTree createSidebarTree() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-        DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("Branch 1");
-        DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("Branch 2");
-        DefaultMutableTreeNode branch3 = new DefaultMutableTreeNode("Branch 3");
+		DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("Request 1");
+		DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("Request 2");
+		DefaultMutableTreeNode branch3 = new DefaultMutableTreeNode("Request 3");
 
-        root.add(branch1);
-        root.add(branch2);
-        root.add(branch3);
+		root.add(branch1);
+		root.add(branch2);
+		root.add(branch3);
 
-        JTree sidebarPanel = new JTree(root);
-        sidebarPanel.setLayout(new BorderLayout());
+		JTree sidebarPanel = new JTree(root);
+		sidebarPanel.setLayout(new BorderLayout());
+
+		sidebarPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) sidebarPanel
+						.getLastSelectedPathComponent();
+				if (selectedNode != null && selectedNode.isLeaf()) {
+					openUpRequestPage(selectedNode);
+				}
+			}
+		});
+
 		return sidebarPanel;
+	}
+
+	private void openUpRequestPage(DefaultMutableTreeNode selectedNode) {
+		tabbedPane.addTab(selectedNode.getUserObject().toString(), new RequestPage(selectedNode.getUserObject()));
+
 	}
 }
