@@ -57,19 +57,7 @@ public class MainWindow extends JFrame {
 
 		tabbedPane = new JTabbedPane();
 
-		// Create and add tabs to the JTabbedPane
-		JPanel tab1 = new JPanel();
-		tab1.add(new JLabel("Tab 1 Content"));
-		tabbedPane.addTab("Tab 1", tab1);
 
-		JPanel tab2 = new JPanel();
-		tab2.add(new JLabel("Tab 2 Content"));
-		tabbedPane.addTab("Tab 2", tab2);
-
-		JPanel tab3 = new JPanel();
-		tab3.add(new JLabel("Tab 3 Content"));
-		tabbedPane.addTab("Tab 3", tab3);
-		// Set layouts for the panels (customize as needed)
 
 		// Add some components to bottom and main panels (customize as needed)
 
