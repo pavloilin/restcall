@@ -7,10 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-public class RequestPage extends JPanel {
+public class RequestPage extends JSplitPane {
 	public RequestPage(Object object) {
-		Component responseParameters = new JLabel("Stroka");
-		Component requestParameters = new JLabel("ah.");
-		add(new JSplitPane(JSplitPane.VERTICAL_SPLIT, requestParameters, responseParameters));
+		super(JSplitPane.VERTICAL_SPLIT, new JLabel("ah."), new JLabel("Stroka"));
+		setDividerLocation(175);
 	}
 }
