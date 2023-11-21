@@ -9,8 +9,8 @@ public class RequestParametersPanel extends JPanel {
 	public RequestParametersPanel() {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		add(new HttpUrlInput());
 		add(new JLabel("howdy"));
+		add(new HttpUrlInput());
 		add(new HttpRequestParameterTabs());
 		
 	}

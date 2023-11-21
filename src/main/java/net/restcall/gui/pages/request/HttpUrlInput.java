@@ -49,8 +49,9 @@ public class HttpUrlInput extends JPanel {
 	}
 	
 	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 50;
+	public Dimension getMaximumSize() {
+		var r = super.getMaximumSize();
+		r.height = 20;
+		return r;
 	}
 }
