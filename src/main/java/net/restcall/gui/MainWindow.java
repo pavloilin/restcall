@@ -13,6 +13,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.restcall.consts.RcConsts;
+import net.restcall.gui.menues.RestCallMainMenu;
 import net.restcall.gui.pages.RequestPage;
 
 public class MainWindow extends JFrame {
@@ -26,6 +27,8 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		super("RestCall ver." + RcConsts.version);
 		configure();
+		
+		setJMenuBar(new RestCallMainMenu());
 
 		JTree sidebarPanel = createSidebarTree();
 		JPanel bottomPanel = createBottomPanel();
