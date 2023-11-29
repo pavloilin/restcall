@@ -20,14 +20,12 @@ public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	JTabbedPane tabbedPane;
-	
-	
+
 	public MainWindow() {
 		super("RestCall ver." + RcConsts.version);
 		configure();
-		
+
 		setJMenuBar(new RestCallMainMenu());
 
 		JTree sidebarPanel = createSidebarTree();
@@ -60,8 +58,6 @@ public class MainWindow extends JFrame {
 
 		tabbedPane = new JTabbedPane();
 
-
-
 		// Add some components to bottom and main panels (customize as needed)
 
 		mainPanel.add(tabbedPane, BorderLayout.CENTER); // Add the JTabbedPane to mainPanel
@@ -91,7 +87,12 @@ public class MainWindow extends JFrame {
 		sidebarPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() > 1) {
+					openRequestTab(sidebarPanel);
+				}
+			}
 
+			private void openRequestTab(JTree sidebarPanel) {
 				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) sidebarPanel
 						.getLastSelectedPathComponent();
 				if (selectedNode != null && selectedNode.isLeaf()) {
@@ -105,6 +106,6 @@ public class MainWindow extends JFrame {
 
 	private void openUpRequestPage(DefaultMutableTreeNode selectedNode) {
 		tabbedPane.addTab(selectedNode.getUserObject().toString(), new RequestPage(selectedNode.getUserObject()));
-
+		tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
 	}
 }
