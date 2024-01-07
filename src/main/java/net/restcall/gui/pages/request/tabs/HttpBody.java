@@ -1,6 +1,7 @@
 package net.restcall.gui.pages.request.tabs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,7 +22,7 @@ public class HttpBody extends JPanel {
 	private static final String FORM_DATA = "form-data";
 	private static final String NONE = "none";
 
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel contentPanel = new JPanel(new BorderLayout(0, 0));
 
 	public HttpBody() {
 		super(new BorderLayout(0, 0));
@@ -31,7 +32,6 @@ public class HttpBody extends JPanel {
 
 		add(payloadTypeComboBox, BorderLayout.NORTH);
 		add(contentPanel, BorderLayout.CENTER);
-
 		updateContentPanel((String) payloadTypeComboBox.getSelectedItem()); // Initial update
 
 		// Add an ActionListener to the combo box
@@ -54,7 +54,7 @@ public class HttpBody extends JPanel {
 		contentPanel.removeAll();
 
 		// Add new content based on the selected option
-		contentPanel.add(createBodyContent(selectedOption));
+		contentPanel.add(createBodyContent(selectedOption), BorderLayout.CENTER);
 
 		// Repaint the panel
 		contentPanel.revalidate();
