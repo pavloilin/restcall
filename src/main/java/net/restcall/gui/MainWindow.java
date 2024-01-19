@@ -73,9 +73,9 @@ public class MainWindow extends JFrame {
 
 	private JTree createSidebarTree() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("Request 1");
-		DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("Request 2");
-		DefaultMutableTreeNode branch3 = new DefaultMutableTreeNode("Request 3");
+		DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("RestCall 1");
+		DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("RestCall 2");
+		DefaultMutableTreeNode branch3 = new DefaultMutableTreeNode("RestCall 3");
 
 		root.add(branch1);
 		root.add(branch2);

@@ -35,7 +35,6 @@ public class BodyBinary extends JPanel {
 
 		if (result == JFileChooser.APPROVE_OPTION) {
 			// User selected files
-			System.out.println("Selected files:");
 			for (java.io.File file : fileChooser.getSelectedFiles()) {
 				System.out.println(file.getAbsolutePath());
 			}

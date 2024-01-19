@@ -10,7 +10,7 @@ import net.restcall.gui.pages.request.tabs.QueryParameters;
 public class HttpRequestParameterTabs extends JTabbedPane {
 	public HttpRequestParameterTabs() {
 		super(TOP, SCROLL_TAB_LAYOUT);
-		addTab("Parameters", new QueryParameters());
+		addTab("Query Parameters", new QueryParameters());
 		addTab("Auth", new JLabel("dhsoif"));
 		addTab("Headers", new HttpHeaders());
 		addTab("Body", new HttpBody());
