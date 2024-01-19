@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 public class BodyNone extends JPanel{
 	public BodyNone() {
 		super(new BorderLayout(0, 0));
-		var noneLabel = new JLabel ("This Request Does Not Have a Body");
+		var noneLabel = new JLabel ("This RestCall Does Not Have a Body");
 		noneLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(noneLabel, BorderLayout.CENTER);
 	}

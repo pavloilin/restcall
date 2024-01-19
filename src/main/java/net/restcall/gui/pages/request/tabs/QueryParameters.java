@@ -12,7 +12,7 @@ public class QueryParameters extends JPanel {
 	public QueryParameters() {
 		super(new BorderLayout(0, 0));
 
-		var header = new JLabel("Query Parameters");
+		var header = new JLabel("Query RestCall");
 
 		String data[][] = { { "param1", "value1", "sdfjdif" }, { "param2", "value2", "eefef?" },
 				{ "param3", "value3", "descrptione" }, { "param4", "value4", "111" } };
