@@ -2,7 +2,7 @@ package net.restcall;
 
 import java.awt.EventQueue;
 
-import net.restcall.gui.MainWindow;
+import net.restcall.controllers.RootController;
 
 public class RestcallApplication {
 
@@ -12,12 +12,8 @@ public class RestcallApplication {
 	}
 
 	private void startGui() {
-		EventQueue.invokeLater(this::showMainWindow);
+		var rootController = new RootController();
+		EventQueue.invokeLater(rootController::show);
 
-	}
-
-	private void showMainWindow() {
-		MainWindow form = new MainWindow();
-		form.setVisible(true);
 	}
 }
