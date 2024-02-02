@@ -21,6 +21,7 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	JTabbedPane tabbedPane;
+	Sidebar sidebarPanel;
 
 	public MainWindow() {
 		super("RestCall ver." + RcConsts.version);
@@ -28,7 +29,7 @@ public class MainWindow extends JFrame {
 
 		setJMenuBar(new RestCallMainMenu());
 
-		JTree sidebarPanel = createSidebarTree();
+		sidebarPanel = new Sidebar();
 		JPanel bottomPanel = createBottomPanel();
 		JPanel mainPanel = createMainPanel();
 
@@ -43,6 +44,10 @@ public class MainWindow extends JFrame {
 		// Set the split pane as the content of the frame
 		getContentPane().add(verticalSplitPane);
 
+	}
+
+	public Sidebar getSidebarPanel() {
+		return sidebarPanel;
 	}
 
 	private void configure() {
@@ -71,38 +76,7 @@ public class MainWindow extends JFrame {
 		return bottomPanel;
 	}
 
-	private JTree createSidebarTree() {
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("RestCall 1");
-		DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("RestCall 2");
-		DefaultMutableTreeNode branch3 = new DefaultMutableTreeNode("RestCall 3");
-
-		root.add(branch1);
-		root.add(branch2);
-		root.add(branch3);
-
-		JTree sidebarPanel = new JTree(root);
-		sidebarPanel.setLayout(new BorderLayout());
-
-		sidebarPanel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() > 1) {
-					openRequestTab(sidebarPanel);
-				}
-			}
-
-			private void openRequestTab(JTree sidebarPanel) {
-				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) sidebarPanel
-						.getLastSelectedPathComponent();
-				if (selectedNode != null && selectedNode.isLeaf()) {
-					openUpRequestPage(selectedNode);
-				}
-			}
-		});
-
-		return sidebarPanel;
-	}
+	
 
 	private void openUpRequestPage(DefaultMutableTreeNode selectedNode) {
 		tabbedPane.addTab(selectedNode.getUserObject().toString(), new RequestPage(selectedNode.getUserObject()));
