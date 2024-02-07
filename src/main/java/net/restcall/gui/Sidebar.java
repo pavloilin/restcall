@@ -1,14 +1,18 @@
 package net.restcall.gui;
 
-import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+
+import net.restcall.gui.menues.SidebarContextMenu;
 
 public class Sidebar extends JTree {
 	public Sidebar() {
+		addRightClickListener();
 
 //		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
 //		DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("RestCall 1");
@@ -39,5 +43,39 @@ public class Sidebar extends JTree {
 //			}
 //		});
 //	}}
+	}
+
+	private void addRightClickListener() {
+		MouseListener mouseListener = new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent mouseEvent) {
+				handleContextMenu(mouseEvent);
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent mouseEvent) {
+				handleContextMenu(mouseEvent);
+			}
+		};
+
+		this.addMouseListener(mouseListener);
+	}
+	
+	private void handleContextMenu(MouseEvent mouseEvent) {
+	    if (mouseEvent.isPopupTrigger()) {
+	        // Use getPathForLocation to get the TreePath at the mouse event location
+	        TreePath path = getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
+
+	        // Check if the path is not null
+	        if (path != null) {
+	            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
+
+	            // Now you have the selected node (selectedNode)
+	            // You can use it in your SidebarContextMenu or perform other actions
+	            SidebarContextMenu sidebarContextMenu = new SidebarContextMenu(selectedNode);
+
+	            sidebarContextMenu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());
+	        }
+	    }
 	}
 }

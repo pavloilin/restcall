@@ -9,6 +9,7 @@ import javax.swing.tree.TreeModel;
 import net.restcall.controllers.Updatable;
 import net.restcall.gui.Sidebar;
 import net.restcall.model.RequestFolder;
+import net.restcall.model.RestCall;
 import net.restcall.model.Workspace;
 
 public class SidebarController implements Updatable {
@@ -28,14 +29,26 @@ public class SidebarController implements Updatable {
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(workspace.getName());
 
-		for (RequestFolder rf : folders) {
-			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(rf.getName());
-			root.add(branch);
-		}
+		addNodeChildren(folders, null, root);
 
 		TreeModel model = new DefaultTreeModel(root);
 		sidebarPanel.setModel(model);
 
 	}
 
+	private void addNodeChildren(List<RequestFolder> folders, List<RestCall> restCalls, DefaultMutableTreeNode parent) {
+		if (folders != null) {
+			for (RequestFolder rf : folders) {
+				DefaultMutableTreeNode branch = new DefaultMutableTreeNode(rf);
+				parent.add(branch);
+				addNodeChildren(rf.getFolders(), rf.getRestCalls(), branch);
+			}
+		}
+		if (restCalls != null) {
+			for (RestCall rc : restCalls) {
+				DefaultMutableTreeNode branch = new DefaultMutableTreeNode(rc);
+				parent.add(branch);
+			}
+		}
+	}
 }
