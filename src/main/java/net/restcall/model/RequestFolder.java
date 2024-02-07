@@ -10,10 +10,13 @@ public class RequestFolder extends ModelItem {
 	public RequestFolder() {
 		super();
 	}
-	
 
 	public RequestFolder(String name, String description, Date creationDate) {
 		super(name, description, creationDate);
+	}
+
+	public RequestFolder(String name) {
+		super(name, null, null);
 	}
 
 	public List<RequestFolder> getFolders() {
