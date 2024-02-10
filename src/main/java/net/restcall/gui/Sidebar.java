@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -12,8 +13,6 @@ import net.restcall.gui.menues.SidebarContextMenu;
 
 public class Sidebar extends JTree {
 	public Sidebar() {
-		addRightClickListener();
-
 //		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
 //		DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("RestCall 1");
 //		DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("RestCall 2");
@@ -44,24 +43,24 @@ public class Sidebar extends JTree {
 //		});
 //	}}
 	}
-
-	private void addRightClickListener() {
+	
+	public void registerContextMenu(JPopupMenu popupMenu) {
 		MouseListener mouseListener = new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent mouseEvent) {
-				handleContextMenu(mouseEvent);
+				handleContextMenu(mouseEvent, popupMenu);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent mouseEvent) {
-				handleContextMenu(mouseEvent);
+				handleContextMenu(mouseEvent, popupMenu);
 			}
 		};
 
 		this.addMouseListener(mouseListener);
 	}
 	
-	private void handleContextMenu(MouseEvent mouseEvent) {
+	private void handleContextMenu(MouseEvent mouseEvent, JPopupMenu popupMenu) {
 	    if (mouseEvent.isPopupTrigger()) {
 	        // Use getPathForLocation to get the TreePath at the mouse event location
 	        TreePath path = getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
