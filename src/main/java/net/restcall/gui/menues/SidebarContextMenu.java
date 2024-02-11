@@ -1,19 +1,35 @@
 package net.restcall.gui.menues;
 
-import javax.swing.JPopupMenu;
-import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JPopupMenu;
+
+import net.restcall.controllers.mainwindow.RightPanelController;
 import net.restcall.gui.actions.ShowAction;
 import net.restcall.model.ModelItem;
 import net.restcall.model.RequestFolder;
 
-public class SidebarContextMenu extends JPopupMenu {
+public class SidebarContextMenu {
 
-	public SidebarContextMenu(DefaultMutableTreeNode selectedNode) {
-		add(new ShowAction((ModelItem)selectedNode.getUserObject()));
-		if (selectedNode.getUserObject() instanceof RequestFolder) {
-			add("New Folder");
-			add("REST Call");
+	private final RightPanelController rightPanelController;
+	
+	public SidebarContextMenu(RightPanelController rightPanelController) {
+		super();
+		this.rightPanelController = rightPanelController;
+	}
+
+	private JPopupMenu create(Object model) {
+		JPopupMenu menu = new JPopupMenu();
+		menu.add(new ShowAction((ModelItem)model, rightPanelController));
+		if (model instanceof RequestFolder) {
+			menu.add("New Folder");
+			menu.add("REST Call");
 		}
+		return menu;
+	}
+
+	public void open(MouseEvent mouseEvent, Object model) {
+		JPopupMenu menu = create(model);
+		menu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());
 	}
 }

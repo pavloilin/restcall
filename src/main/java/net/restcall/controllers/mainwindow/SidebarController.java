@@ -8,6 +8,7 @@ import javax.swing.tree.TreeModel;
 
 import net.restcall.controllers.Updatable;
 import net.restcall.gui.Sidebar;
+import net.restcall.gui.menues.SidebarContextMenu;
 import net.restcall.model.RequestFolder;
 import net.restcall.model.RestCall;
 import net.restcall.model.Workspace;
@@ -20,7 +21,6 @@ public class SidebarController implements Updatable {
 	public SidebarController(Workspace workspace, Sidebar sidebarPanel) {
 		this.workspace = workspace;
 		this.sidebarPanel = sidebarPanel;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
