@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -12,8 +11,11 @@ import javax.swing.tree.TreePath;
 import net.restcall.gui.menues.SidebarContextMenu;
 
 public class Sidebar extends JTree {
+
+	private SidebarContextMenu sidebarContextMenu;
+
 	public Sidebar() {
-//		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+		// DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
 //		DefaultMutableTreeNode branch1 = new DefaultMutableTreeNode("RestCall 1");
 //		DefaultMutableTreeNode branch2 = new DefaultMutableTreeNode("RestCall 2");
 //		DefaultMutableTreeNode branch3 = new DefaultMutableTreeNode("RestCall 3");
@@ -42,39 +44,43 @@ public class Sidebar extends JTree {
 //			}
 //		});
 //	}}
+		registerContextMenu();
 	}
-	
-	public void registerContextMenu(JPopupMenu popupMenu) {
+
+	public void setSidebarContextMenu(SidebarContextMenu sidebarContextMenu) {
+		this.sidebarContextMenu = sidebarContextMenu;
+	}
+
+	public void registerContextMenu() {
 		MouseListener mouseListener = new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent mouseEvent) {
-				handleContextMenu(mouseEvent, popupMenu);
+				handleContextMenu(mouseEvent);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent mouseEvent) {
-				handleContextMenu(mouseEvent, popupMenu);
+				handleContextMenu(mouseEvent);
 			}
 		};
 
 		this.addMouseListener(mouseListener);
 	}
-	
-	private void handleContextMenu(MouseEvent mouseEvent, JPopupMenu popupMenu) {
-	    if (mouseEvent.isPopupTrigger()) {
-	        // Use getPathForLocation to get the TreePath at the mouse event location
-	        TreePath path = getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
 
-	        // Check if the path is not null
-	        if (path != null) {
-	            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
+	private void handleContextMenu(MouseEvent mouseEvent) {
+		if (mouseEvent.isPopupTrigger()) {
+			// Use getPathForLocation to get the TreePath at the mouse event location
+			TreePath path = getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
 
-	            // Now you have the selected node (selectedNode)
-	            // You can use it in your SidebarContextMenu or perform other actions
-	            SidebarContextMenu sidebarContextMenu = new SidebarContextMenu(selectedNode);
+			// Check if the path is not null
+			if (path != null && sidebarContextMenu != null) {
+				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
 
-	            sidebarContextMenu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());
-	        }
-	    }
+				// Now you have the selected node (selectedNode)
+				// You can use it in your SidebarContextMenu or perform other actions
+
+				sidebarContextMenu.open(mouseEvent, selectedNode.getUserObject());
+			}
+		}
 	}
 }
