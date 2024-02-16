@@ -12,6 +12,7 @@ import net.restcall.model.Workspace;
 public class RightPanelController implements Updatable {
 
 	private List<ModelItem> shownItems = new ArrayList<>();
+	private ModelItem currentModelItem;
 	private Workspace workspace;
 	private RightPanel rightPanel;
 
@@ -26,11 +27,21 @@ public class RightPanelController implements Updatable {
 			ModelItem item = shownItems.get(shownItems.size() - 1);
 			rightPanel.openTab(item.getName(), new RequestPage(item));
 		}
+		if (currentModelItem != null) {
+			rightPanel.switchToTab(shownItems.indexOf(currentModelItem));
+		}
 	}
 
 	public void openModelItem(ModelItem modelItem) {
-		shownItems.add(modelItem);
+		if (isNotShown(modelItem)) {
+			shownItems.add(modelItem);
+		}
+		currentModelItem = modelItem;
 		updateUi();
-
 	}
+
+	private boolean isNotShown(ModelItem modelItem) {
+		return !shownItems.contains(modelItem);
+	}
+	
 }
