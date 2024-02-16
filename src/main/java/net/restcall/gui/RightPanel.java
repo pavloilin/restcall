@@ -32,4 +32,7 @@ public class RightPanel extends JPanel {
 		
 		return size != tabbedPane.getTabCount();
 	}
+	public void switchToTab(int tabIndex) {
+		tabbedPane.setSelectedIndex(tabIndex);
+	}
 }
