@@ -8,6 +8,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import net.restcall.gui.listeners.DoubleClickNodeListener;
 import net.restcall.gui.menues.SidebarContextMenu;
 
 public class Sidebar extends JTree {
@@ -65,6 +66,25 @@ public class Sidebar extends JTree {
 		};
 
 		this.addMouseListener(mouseListener);
+	}
+
+	public void registerNodeActivationListener(DoubleClickNodeListener listener) {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() > 1) {
+					activateNode();
+				}
+			}
+
+			private void activateNode() {
+				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) Sidebar.this
+						.getLastSelectedPathComponent();
+				if (selectedNode != null) {
+					listener.nodeActivated(selectedNode);
+				}
+			}
+		});
 	}
 
 	private void handleContextMenu(MouseEvent mouseEvent) {
