@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.restcall.controllers.Updatable;
+import net.restcall.controllers.mainwindow.rightpanelcontrollers.BaseTabController;
+import net.restcall.controllers.mainwindow.rightpanelcontrollers.FolderTabController;
+import net.restcall.controllers.mainwindow.rightpanelcontrollers.RestcallTabController;
 import net.restcall.gui.RightPanel;
 import net.restcall.gui.pages.RequestPage;
 import net.restcall.model.ModelItem;
+import net.restcall.model.RestCall;
 import net.restcall.model.Workspace;
 
 public class RightPanelController implements Updatable {
 
-	private List<ModelItem> shownItems = new ArrayList<>();
-	private ModelItem currentModelItem;
-	private Workspace workspace;
-	private RightPanel rightPanel;
+	private final List<BaseTabController> tabControllers = new ArrayList<>();
+	private final Workspace workspace;
+	private final RightPanel rightPanel;
+	private int currentTabIndex = -1;
 
 	public RightPanelController(Workspace workspace, RightPanel rightPanel) {
 		this.workspace = workspace;
@@ -23,25 +27,41 @@ public class RightPanelController implements Updatable {
 
 	@Override
 	public void updateUi() {
-		if (rightPanel.isAllTabsPresent(shownItems.size())) {
-			ModelItem item = shownItems.get(shownItems.size() - 1);
-			rightPanel.openTab(item.getName(), new RequestPage(item));
+		if (rightPanel.isAllTabsPresent(tabControllers.size())) {
+			BaseTabController tabController = tabControllers.get(tabControllers.size() - 1);
+			tabController.open();
 		}
-		if (currentModelItem != null) {
-			rightPanel.switchToTab(shownItems.indexOf(currentModelItem));
+		if (currentTabIndex >= 0) {
+			rightPanel.switchToTab(currentTabIndex);
 		}
 	}
 
 	public void openModelItem(ModelItem modelItem) {
-		if (isNotShown(modelItem)) {
-			shownItems.add(modelItem);
+		currentTabIndex = findTabIndex(modelItem);
+
+		if (currentTabIndex < 0) {
+			tabControllers.add(createTabController(modelItem));
 		}
-		currentModelItem = modelItem;
 		updateUi();
 	}
 
-	private boolean isNotShown(ModelItem modelItem) {
-		return !shownItems.contains(modelItem);
+	private BaseTabController createTabController(ModelItem modelItem) {
+		if (modelItem instanceof RestCall) {
+			return new RestcallTabController(modelItem, rightPanel);
+		} else {
+			return new FolderTabController(modelItem, rightPanel);
+		}
+
 	}
-	
+
+	private int findTabIndex(ModelItem modelItem) {
+		for (int i = 0; i < tabControllers.size(); i++) {
+			if (tabControllers.get(i).ownModelItem(modelItem)) {
+				return i;
+
+			}
+		}
+		return -1;
+	}
+
 }

@@ -2,11 +2,9 @@ package net.restcall.gui;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import net.restcall.gui.pages.RequestPage;
 
 public class RightPanel extends JPanel {
 
@@ -24,8 +22,8 @@ public class RightPanel extends JPanel {
 
 		
 	}
-	public void openTab(String title, RequestPage requestPage) {
-		tabbedPane.addTab(title, requestPage);
+	public void openTab(String title, JComponent content ) {
+		tabbedPane.addTab(title, content);
 		tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
 	}
 	public boolean isAllTabsPresent(int size) {

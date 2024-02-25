@@ -1,15 +1,15 @@
 package net.restcall.gui;
 
+
+
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.restcall.consts.RcConsts;
 import net.restcall.gui.menues.RestCallMainMenu;
-import net.restcall.gui.pages.RequestPage;
 
 public class MainWindow extends JFrame {
 
