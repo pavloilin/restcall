@@ -8,7 +8,6 @@ import javax.swing.tree.TreeModel;
 
 import net.restcall.controllers.Updatable;
 import net.restcall.gui.Sidebar;
-import net.restcall.gui.menues.SidebarContextMenu;
 import net.restcall.model.RequestFolder;
 import net.restcall.model.RestCall;
 import net.restcall.model.Workspace;
@@ -39,14 +38,22 @@ public class SidebarController implements Updatable {
 	private void addNodeChildren(List<RequestFolder> folders, List<RestCall> restCalls, DefaultMutableTreeNode parent) {
 		if (folders != null) {
 			for (RequestFolder rf : folders) {
-				DefaultMutableTreeNode branch = new DefaultMutableTreeNode(rf);
+				DefaultMutableTreeNode branch = new DefaultMutableTreeNode(rf) {
+					@Override
+					public boolean isLeaf() {
+						return false;
+					}
+				};
 				parent.add(branch);
 				addNodeChildren(rf.getFolders(), rf.getRestCalls(), branch);
 			}
 		}
 		if (restCalls != null) {
 			for (RestCall rc : restCalls) {
-				DefaultMutableTreeNode branch = new DefaultMutableTreeNode(rc);
+				DefaultMutableTreeNode branch = new DefaultMutableTreeNode(rc){@Override
+				public boolean isLeaf() {
+					return true;
+				}};
 				parent.add(branch);
 			}
 		}
