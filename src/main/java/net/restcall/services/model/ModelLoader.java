@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import net.restcall.consts.RcConsts.RequestTypes;
 import net.restcall.model.RequestFolder;
 import net.restcall.model.RestCall;
 import net.restcall.model.Workspace;
@@ -31,7 +32,11 @@ public class ModelLoader {
 		folder2.setFolders(folder2FoldersChildren);
 		
 		List<RestCall> folder2RestcallsChildren = new ArrayList<>();
-		folder2RestcallsChildren.add(new RestCall("restcalla", null, null));
+		RestCall restcall = new RestCall("restcalla", null, null);
+		restcall.getEndpoint().setUrl("http://restcall.net");
+		restcall.getEndpoint().setMethod(RequestTypes.DELETE);
+		
+		folder2RestcallsChildren.add(restcall);
 		folder2.setRestCalls(folder2RestcallsChildren);
 		
 		RequestFolder folder3 = new RequestFolder();

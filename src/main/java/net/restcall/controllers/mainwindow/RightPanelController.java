@@ -33,6 +33,7 @@ public class RightPanelController implements Updatable {
 		}
 		if (currentTabIndex >= 0) {
 			rightPanel.switchToTab(currentTabIndex);
+			tabControllers.get(currentTabIndex).updateUi();
 		}
 	}
 
@@ -41,6 +42,7 @@ public class RightPanelController implements Updatable {
 
 		if (currentTabIndex < 0) {
 			tabControllers.add(createTabController(modelItem));
+			currentTabIndex = tabControllers.size() - 1;
 		}
 		updateUi();
 	}
