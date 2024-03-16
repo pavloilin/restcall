@@ -8,11 +8,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class QueryParameters extends JPanel {
-	public QueryParameters() {
+public class HttpHeadersPanel extends JPanel {
+	public HttpHeadersPanel() {
 		super(new BorderLayout(0, 0));
 
-		var header = new JLabel("Query RestCall");
+		var header = new JLabel("Headers");
 
 		String data[][] = { { "param1", "value1", "sdfjdif" }, { "param2", "value2", "eefef?" },
 				{ "param3", "value3", "descrptione" }, { "param4", "value4", "111" } };
@@ -25,4 +25,5 @@ public class QueryParameters extends JPanel {
 		add(scrollpane, BorderLayout.CENTER);
 		add(header, BorderLayout.NORTH);
 	}
+
 }

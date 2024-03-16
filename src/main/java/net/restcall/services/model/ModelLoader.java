@@ -8,6 +8,8 @@ import net.restcall.consts.RcConsts.RequestTypes;
 import net.restcall.model.RequestFolder;
 import net.restcall.model.RestCall;
 import net.restcall.model.Workspace;
+import net.restcall.model.call.Request;
+import net.restcall.model.call.request.QueryParameters;
 
 public class ModelLoader {
 	public void load(Workspace workspace) {
@@ -35,6 +37,8 @@ public class ModelLoader {
 		RestCall restcall = new RestCall("restcalla", null, null);
 		restcall.getEndpoint().setUrl("http://restcall.net");
 		restcall.getEndpoint().setMethod(RequestTypes.DELETE);
+		Request r = restcall.getRequest();
+		QueryParameters q = r.getQueryParameters();
 		
 		folder2RestcallsChildren.add(restcall);
 		folder2.setRestCalls(folder2RestcallsChildren);
