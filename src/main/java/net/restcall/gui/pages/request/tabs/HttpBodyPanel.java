@@ -15,7 +15,7 @@ import net.restcall.gui.pages.request.tabs.httpbodycontents.BodyNone;
 import net.restcall.gui.pages.request.tabs.httpbodycontents.BodyRaw;
 import net.restcall.gui.pages.request.tabs.httpbodycontents.BodyXWwwFormUrlencoded;
 
-public class HttpBody extends JPanel {
+public class HttpBodyPanel extends JPanel {
 	private static final String BINARY = "binary";
 	private static final String RAW = "raw";
 	private static final String X_WWW_FORM_URLENCODED = "x-www-form-urlencoded";
@@ -24,7 +24,7 @@ public class HttpBody extends JPanel {
 
 	private final JPanel contentPanel = new JPanel(new BorderLayout(0, 0));
 
-	public HttpBody() {
+	public HttpBodyPanel() {
 		super(new BorderLayout(0, 0));
 
 		String[] payloadTypes = { NONE, FORM_DATA, X_WWW_FORM_URLENCODED, RAW, BINARY };

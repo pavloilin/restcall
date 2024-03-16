@@ -16,7 +16,7 @@ public class RestcallTabController extends BaseRightPanelTabController {
 		requestPage = new RequestPage(modelItem);
 		RestCall restcall = (RestCall) modelItem;
 		registerController(new RequestUrlController(restcall.getEndpoint(), requestPage.requestParamPanel().getHttpUrlInput()));
-		registerController(new RequestParameterController(requestPage.requestParamPanel().getParameterTabs()));
+		registerController(new RequestParameterController(restcall.getRequest(), requestPage.requestParamPanel().getParameterTabs()));
 		
 	}
 

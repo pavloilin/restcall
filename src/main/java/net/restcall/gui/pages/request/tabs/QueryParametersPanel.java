@@ -8,11 +8,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class HttpHeaders extends JPanel {
-	public HttpHeaders() {
+import net.restcall.controllers.mainwindow.rightpanelcontrollers.requestdetails.tabcontrollers.QueryParamsController;
+import net.restcall.gui.listeners.UiChangeListener;
+
+public class QueryParametersPanel extends JPanel {
+	
+	private UiChangeListener changeListener;
+
+	public QueryParametersPanel() {
 		super(new BorderLayout(0, 0));
 
-		var header = new JLabel("Headers");
+		var header = new JLabel("Query RestCall");
 
 		String data[][] = { { "param1", "value1", "sdfjdif" }, { "param2", "value2", "eefef?" },
 				{ "param3", "value3", "descrptione" }, { "param4", "value4", "111" } };
@@ -26,4 +32,7 @@ public class HttpHeaders extends JPanel {
 		add(header, BorderLayout.NORTH);
 	}
 
+	public void registerChangeListener(UiChangeListener changeListener) {
+		this.changeListener = changeListener;
+	}
 }
