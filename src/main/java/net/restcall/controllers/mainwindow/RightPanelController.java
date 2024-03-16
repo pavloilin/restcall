@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.restcall.controllers.Updatable;
-import net.restcall.controllers.mainwindow.rightpanelcontrollers.BaseTabController;
+import net.restcall.controllers.mainwindow.rightpanelcontrollers.BaseRightPanelTabController;
 import net.restcall.controllers.mainwindow.rightpanelcontrollers.FolderTabController;
 import net.restcall.controllers.mainwindow.rightpanelcontrollers.RestcallTabController;
 import net.restcall.gui.RightPanel;
@@ -15,7 +15,7 @@ import net.restcall.model.Workspace;
 
 public class RightPanelController implements Updatable {
 
-	private final List<BaseTabController> tabControllers = new ArrayList<>();
+	private final List<BaseRightPanelTabController> tabControllers = new ArrayList<>();
 	private final Workspace workspace;
 	private final RightPanel rightPanel;
 	private int currentTabIndex = -1;
@@ -28,7 +28,7 @@ public class RightPanelController implements Updatable {
 	@Override
 	public void updateUi() {
 		if (rightPanel.isAllTabsPresent(tabControllers.size())) {
-			BaseTabController tabController = tabControllers.get(tabControllers.size() - 1);
+			BaseRightPanelTabController tabController = tabControllers.get(tabControllers.size() - 1);
 			tabController.open();
 		}
 		if (currentTabIndex >= 0) {
@@ -47,7 +47,7 @@ public class RightPanelController implements Updatable {
 		updateUi();
 	}
 
-	private BaseTabController createTabController(ModelItem modelItem) {
+	private BaseRightPanelTabController createTabController(ModelItem modelItem) {
 		if (modelItem instanceof RestCall) {
 			return new RestcallTabController(modelItem, rightPanel);
 		} else {

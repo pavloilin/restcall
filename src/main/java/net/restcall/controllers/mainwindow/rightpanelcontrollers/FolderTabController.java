@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import net.restcall.gui.RightPanel;
 import net.restcall.model.ModelItem;
 
-public class FolderTabController extends BaseTabController {
+public class FolderTabController extends BaseRightPanelTabController {
 
 	public FolderTabController(ModelItem modelItem, RightPanel rightPanel) {
 		super(modelItem, rightPanel);
