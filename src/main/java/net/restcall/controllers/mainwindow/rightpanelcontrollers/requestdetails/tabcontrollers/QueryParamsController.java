@@ -1,6 +1,7 @@
 package net.restcall.controllers.mainwindow.rightpanelcontrollers.requestdetails.tabcontrollers;
 
 import java.util.List;
+import java.util.Vector;
 
 import net.restcall.controllers.Updatable;
 import net.restcall.gui.listeners.UiChangeListener;
@@ -40,7 +41,13 @@ public class QueryParamsController implements Updatable, UiChangeListener {
 
 	@Override
 	public void uiChanged() {
-		// TODO Auto-generated method stub
-
+		List<SelectableNamedValue> list = queryParams.getParams();
+		Vector<Vector> uiData = queryParametersPanel.getData();
+		for (int i = 0; i<uiData.size(); i++) {
+			SelectableNamedValue item = list.get(i);
+			Vector row = uiData.get(i);
+			item.setName((String) row.get(0));
+			item.setValue((String)row.get(1));
+		}
 	}
 }
