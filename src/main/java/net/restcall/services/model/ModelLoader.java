@@ -39,6 +39,8 @@ public class ModelLoader {
 		restcall.getEndpoint().setMethod(RequestTypes.DELETE);
 		Request r = restcall.getRequest();
 		QueryParameters q = r.getQueryParameters();
+		q.addParameter("name", "value");
+		q.addParameter("w", "l");
 		
 		folder2RestcallsChildren.add(restcall);
 		folder2.setRestCalls(folder2RestcallsChildren);
