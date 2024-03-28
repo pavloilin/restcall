@@ -3,14 +3,20 @@ package net.restcall.controllers.mainwindow.rightpanelcontrollers.requestdetails
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.Action;
+
 import net.restcall.controllers.Updatable;
+import net.restcall.gui.actions.CommandAction;
+import net.restcall.gui.actions.CommandExecutor;
 import net.restcall.gui.listeners.UiChangeListener;
 import net.restcall.gui.pages.request.tabs.QueryParametersPanel;
 import net.restcall.model.call.request.QueryParameters;
 import net.restcall.model.util.SelectableNamedValue;
+import net.restcall.services.model.request.AddQueryParameterService;
 
-public class QueryParamsController implements Updatable, UiChangeListener {
+public class QueryParamsController implements Updatable, UiChangeListener, CommandExecutor {
 
+	private static final int ADD_NEW_QUERY_PARAM = 0;
 	private final QueryParameters queryParams;
 	private final QueryParametersPanel queryParametersPanel;
 
@@ -18,6 +24,8 @@ public class QueryParamsController implements Updatable, UiChangeListener {
 		this.queryParams = queryParams;
 		this.queryParametersPanel = queryParametersPanel;
 		queryParametersPanel.registerChangeListener(this);
+		queryParametersPanel.registerActions(new Action[] {
+				new CommandAction(ADD_NEW_QUERY_PARAM, "Add New Query Param", "/buttons/add.png", this) });
 	}
 
 	@Override
@@ -43,11 +51,22 @@ public class QueryParamsController implements Updatable, UiChangeListener {
 	public void uiChanged() {
 		List<SelectableNamedValue> list = queryParams.getParams();
 		Vector<Vector> uiData = queryParametersPanel.getData();
-		for (int i = 0; i<uiData.size(); i++) {
+		for (int i = 0; i < uiData.size(); i++) {
 			SelectableNamedValue item = list.get(i);
 			Vector row = uiData.get(i);
 			item.setName((String) row.get(0));
-			item.setValue((String)row.get(1));
+			item.setValue((String) row.get(1));
 		}
+	}
+
+	@Override
+	public void execute(int commandId, String... params) {
+		switch (commandId) {
+		case ADD_NEW_QUERY_PARAM:
+			new AddQueryParameterService(queryParams.getParams()).add();
+			break;
+
+		}
+		updateUi();
 	}
 }

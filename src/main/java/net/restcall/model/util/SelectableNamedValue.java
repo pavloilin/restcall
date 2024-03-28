@@ -4,7 +4,7 @@ public class SelectableNamedValue {
 	private boolean selected;
 	private String name;
 	private String value;
-	
+
 	public SelectableNamedValue(String name, String value) {
 		this.name = name;
 		this.value = value;
@@ -34,6 +34,9 @@ public class SelectableNamedValue {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
-	
+
+	public boolean isNotEmpty() {
+		return !"".equals(name) || !"".equals(value);
+	}
+
 }
