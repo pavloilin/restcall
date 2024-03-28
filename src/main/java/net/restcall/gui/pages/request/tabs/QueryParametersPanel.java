@@ -3,7 +3,7 @@ package net.restcall.gui.pages.request.tabs;
 import java.awt.BorderLayout;
 import java.util.Vector;
 
-import javax.swing.JLabel;
+import javax.swing.Action;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,24 +12,26 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import net.restcall.gui.listeners.UiChangeListener;
+import net.restcall.gui.widgets.HeaderWithToolbar;
 
 public class QueryParametersPanel extends JPanel {
 
 	public static final int COLUMN_COUNT = 3;
 
 	private final JTable table;
+	private final HeaderWithToolbar headerWithToolbar;
 	private UiChangeListener changeListener;
 
 	public QueryParametersPanel() {
 		super(new BorderLayout(0, 0));
 
-		var header = new JLabel("Query RestCall");
+		headerWithToolbar = new HeaderWithToolbar("Query RestCall");
 
 		this.table = new JTable();
 
 		JScrollPane scrollpane = new JScrollPane(table);
 		add(scrollpane, BorderLayout.CENTER);
-		add(header, BorderLayout.NORTH);
+		add(headerWithToolbar, BorderLayout.NORTH);
 	}
 
 	public void registerChangeListener(UiChangeListener changeListener) {
@@ -51,6 +53,11 @@ public class QueryParametersPanel extends JPanel {
 	}
 	public Vector<Vector> getData(){
 		return ((DefaultTableModel)table.getModel()).getDataVector();
+		
+	}
+
+	public void registerActions(Action[] actions) {
+		headerWithToolbar.registerActions(actions);
 		
 	}
 }
