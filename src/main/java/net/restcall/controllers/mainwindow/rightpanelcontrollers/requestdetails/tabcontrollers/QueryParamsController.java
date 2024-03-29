@@ -13,10 +13,12 @@ import net.restcall.gui.pages.request.tabs.QueryParametersPanel;
 import net.restcall.model.call.request.QueryParameters;
 import net.restcall.model.util.SelectableNamedValue;
 import net.restcall.services.model.request.AddQueryParameterService;
+import net.restcall.services.model.request.DeleteQueryParameterService;
 
 public class QueryParamsController implements Updatable, UiChangeListener, CommandExecutor {
 
 	private static final int ADD_NEW_QUERY_PARAM = 0;
+	private static final int DELETE_QUERY_PARAM = 1;
 	private final QueryParameters queryParams;
 	private final QueryParametersPanel queryParametersPanel;
 
@@ -25,7 +27,10 @@ public class QueryParamsController implements Updatable, UiChangeListener, Comma
 		this.queryParametersPanel = queryParametersPanel;
 		queryParametersPanel.registerChangeListener(this);
 		queryParametersPanel.registerActions(new Action[] {
-				new CommandAction(ADD_NEW_QUERY_PARAM, "Add New Query Param", "/buttons/add.png", this) });
+				new CommandAction(DELETE_QUERY_PARAM, "Delete Query Param", "/buttons/del.png", this),
+				new CommandAction(ADD_NEW_QUERY_PARAM, "Add New Query Param", "/buttons/add.png", this)
+				
+		});
 	}
 
 	@Override
@@ -65,7 +70,8 @@ public class QueryParamsController implements Updatable, UiChangeListener, Comma
 		case ADD_NEW_QUERY_PARAM:
 			new AddQueryParameterService(queryParams.getParams()).add();
 			break;
-
+		case DELETE_QUERY_PARAM:
+			new DeleteQueryParameterService(queryParams.getParams()).delete(queryParametersPanel.getSelectedIndex());
 		}
 		updateUi();
 	}

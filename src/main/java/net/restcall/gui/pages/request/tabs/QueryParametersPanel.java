@@ -60,4 +60,8 @@ public class QueryParametersPanel extends JPanel {
 		headerWithToolbar.registerActions(actions);
 		
 	}
+
+	public int getSelectedIndex() {
+		return table.getSelectedRow();
+	}
 }
