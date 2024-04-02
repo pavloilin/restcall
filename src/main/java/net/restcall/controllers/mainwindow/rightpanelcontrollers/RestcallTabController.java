@@ -10,20 +10,21 @@ import net.restcall.model.RestCall;
 public class RestcallTabController extends BaseRightPanelTabController {
 
 	private final RequestPage requestPage;
-	
+
 	public RestcallTabController(ModelItem modelItem, RightPanel rightPanel) {
 		super(modelItem, rightPanel);
 		requestPage = new RequestPage(modelItem);
 		RestCall restcall = (RestCall) modelItem;
-		registerController(new RequestUrlController(restcall.getEndpoint(), requestPage.requestParamPanel().getHttpUrlInput()));
-		registerController(new RequestParameterController(restcall.getRequest(), requestPage.requestParamPanel().getParameterTabs()));
-		
+		registerController(new RequestUrlController(restcall.getEndpoint(), restcall.getRequest().getQueryParameters(),
+				requestPage.requestParamPanel().getHttpUrlInput()));
+		registerController(new RequestParameterController(restcall.getRequest(),
+				requestPage.requestParamPanel().getParameterTabs()));
+
 	}
 
 	@Override
 	public void open() {
 		rightPanel.openTab(modelItem.getName(), requestPage);
 	}
-
 
 }
