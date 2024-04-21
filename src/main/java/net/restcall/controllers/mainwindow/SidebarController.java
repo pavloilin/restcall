@@ -6,6 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 
+import net.restcall.controllers.Context;
 import net.restcall.controllers.Updatable;
 import net.restcall.gui.Sidebar;
 import net.restcall.model.RequestFolder;
@@ -14,10 +15,12 @@ import net.restcall.model.Workspace;
 
 public class SidebarController implements Updatable {
 
-	private Workspace workspace;
-	private Sidebar sidebarPanel;
+	private final Workspace workspace;
+	private final Sidebar sidebarPanel;
+	private final Context context;
 
-	public SidebarController(Workspace workspace, Sidebar sidebarPanel) {
+	public SidebarController(Context context, Workspace workspace, Sidebar sidebarPanel) {
+		this.context = context;
 		this.workspace = workspace;
 		this.sidebarPanel = sidebarPanel;
 	}

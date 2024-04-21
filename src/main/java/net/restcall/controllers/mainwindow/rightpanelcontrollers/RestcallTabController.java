@@ -1,5 +1,6 @@
 package net.restcall.controllers.mainwindow.rightpanelcontrollers;
 
+import net.restcall.controllers.Context;
 import net.restcall.controllers.mainwindow.rightpanelcontrollers.requestdetails.RequestParameterController;
 import net.restcall.controllers.mainwindow.rightpanelcontrollers.requestdetails.RequestUrlController;
 import net.restcall.gui.RightPanel;
@@ -10,14 +11,16 @@ import net.restcall.model.RestCall;
 public class RestcallTabController extends BaseRightPanelTabController {
 
 	private final RequestPage requestPage;
+	private final Context context;
 
-	public RestcallTabController(ModelItem modelItem, RightPanel rightPanel) {
+	public RestcallTabController(Context context, ModelItem modelItem, RightPanel rightPanel) {
 		super(modelItem, rightPanel);
+		this.context = context;
 		requestPage = new RequestPage(modelItem);
 		RestCall restcall = (RestCall) modelItem;
-		registerController(new RequestUrlController(restcall.getEndpoint(), restcall.getRequest().getQueryParameters(),
+		registerController(new RequestUrlController(context, restcall.getEndpoint(), restcall.getRequest().getQueryParameters(),
 				requestPage.requestParamPanel().getHttpUrlInput()));
-		registerController(new RequestParameterController(restcall.getRequest(),
+		registerController(new RequestParameterController(context, restcall.getRequest(),
 				requestPage.requestParamPanel().getParameterTabs()));
 
 	}

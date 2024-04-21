@@ -16,21 +16,23 @@ import net.restcall.model.Workspace;
 import net.restcall.services.model.ModelLoader;
 
 public class RootController implements Updatable, DoubleClickNodeListener {
-	private Workspace workspace;
-	private MainWindow mainWindow;
-	private Updatable[] controllers;
-	private RightPanelController rightPanelController;
+	private final Workspace workspace;
+	private final MainWindow mainWindow;
+	private final Updatable[] controllers;
+	private final RightPanelController rightPanelController;
+	private final Context context;
 
 	public RootController() {
-		workspace = new Workspace("workspace1", "", new Date());
+		this.context= new Context(this);
+		workspace = new Workspace("workplace", "", new Date());
 		mainWindow = new MainWindow();
 		var sidebarPanel = mainWindow.getSidebarPanel();
-		rightPanelController = new RightPanelController(workspace, mainWindow.getRightPanel());
+		rightPanelController = new RightPanelController(context, workspace, mainWindow.getRightPanel());
 		sidebarPanel.setSidebarContextMenu(new SidebarContextMenu(rightPanelController));
 		sidebarPanel.registerNodeActivationListener(this);
-		controllers = new Updatable[] { new SidebarController(workspace, sidebarPanel), rightPanelController,
-				new BottomPanelController()
-
+		controllers = new Updatable[] { new SidebarController(context, workspace, sidebarPanel), rightPanelController,
+				new BottomPanelController(context)
+				
 		};
 	}
 
